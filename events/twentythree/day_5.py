@@ -96,13 +96,20 @@ def calculate_lowest_location(mappings, seeds_list):
 def second_assignment():
     with open(RESOURCES_DIR / 'day5_input.txt') as file:
         seeds_line = file.readline().replace('seeds:', '')
-        seeds_list = []
+        seeds_ranges = []
         splits = seeds_line.split()
+        current_seed = -1
         for index, j in enumerate(splits):
             if index % 2 == 0:
-                print(f'{index} -> {j}')
-                for i in range(int(j), int(j)+int(splits[index+1])):
-                    seeds_list.append(Seed(int(i)))
+                current_seed = int(j)
+            else:
+                seed_range = (current_seed, (current_seed + (int(j) - 1)))
+                seeds_ranges.append(seed_range)
+
+        print(seeds_ranges)
+        #         print(f'{index} -> {j}')
+        #         for i in range(int(j), int(j)+int(splits[index+1])):
+        #             seeds_list.append(Seed(int(i)))
 
 
         mappings = {}
@@ -114,14 +121,34 @@ def second_assignment():
             if ' map:' in line:
                 name = line.replace(' map:', '')
                 current_map = name
-                mappings[current_map] = {'dest_start': [], 'source_start': [], 'range': [] }
+                mappings[current_map] = []
             else:
                 splits = line.split()
-                mappings[current_map]['dest_start'].append(int(splits[0]))
-                mappings[current_map]['source_start'].append(int(splits[1]))
-                mappings[current_map]['range'].append(int(splits[2]))
-        total = calculate_lowest_location(mappings, seeds_list)
-    return total
+                tuples = (int(splits[0]), int(splits[1]), int(splits[2]))  # changing direction here!!!!
+                mappings[current_map].append(tuples)
+        [x.sort() for x in mappings.values()]
+        print(mappings)
+
+    return 0
+
+# def check_for_location(mappings):
+#     x = mappings['humidity-to-location'][0]
+#     min = x[0]
+#
+#     max = x[0] + x[2] - 1
+#     target = x[1]
+#     max_target = target + x[2] - 1
+#     print(f' {min}, {max}, {target} ' )
+#
+#     for hum in mappings['temperature-to-humidity']:
+#         if hum[0] <= target and (hum[0] + hum[2] - 1) >= max_target:
+#             print(hum[1])
+#             target = hum[1]
+#             max_target = target + hum[2] -1
+#
+#     for temp in mappings['light-to-temperature']:
+#         if temp[0] <= target and (temp[0] + temp[2] - 1) >= max_target:
+#             print(temp[1])
 
 
 # print(f'answer to assignment 1 is: {first_assignment()}')  # 30692976 is too low
