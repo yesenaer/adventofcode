@@ -5,13 +5,13 @@ RESOURCES_DIR = Path(__file__).parent / 'resources'
 
 
 def first_assignment():
-    with open(RESOURCES_DIR / 'day5_input.txt') as file:
+    with open(RESOURCES_DIR / 'day6_input.txt') as file:
         pass
     return 0
 
 
 def second_assignment():
-    with open(RESOURCES_DIR / 'day5_input.txt') as file:
+    with open(RESOURCES_DIR / 'day6_input.txt') as file:
         pass
 
     return 0
