@@ -1,5 +1,4 @@
 from pathlib import Path
-import pandas as pd
 
 RESOURCES_DIR = Path(__file__).parent / 'resources'
 
