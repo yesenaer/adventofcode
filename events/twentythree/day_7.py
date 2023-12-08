@@ -108,27 +108,29 @@ def determine_hand_part2(bid, cards, hands):
     elif len(unique_cards) == 3:
         for i in unique_cards:
             total = cards.count(i)
+            if total > 1:
+                break
             # print(f'{total=} {unique_cards=} {cards=}')
-            if total == 3:
-                if 'W' in unique_cards:
+        if total == 3:
+            if 'W' in unique_cards:
+                # print(f'adding as four of a kind {cards=}')
+                hands['four-of-a-kind'].append((cards, bid))
+            else:
+                # print(f'adding as three of a kind {cards=}')
+                hands['three-of-a-kind'].append((cards, bid))
+            
+        elif total == 2:
+            if 'W' in unique_cards:
+                if cards.count('W') == 2:
                     # print(f'adding as four of a kind {cards=}')
                     hands['four-of-a-kind'].append((cards, bid))
                 else:
-                    # print(f'adding as three of a kind {cards=}')
-                    hands['three-of-a-kind'].append((cards, bid))
-                break
-            elif total == 2:
-                if 'W' in unique_cards:
-                    if cards.count('W') == 2:
-                        # print(f'adding as four of a kind {cards=}')
-                        hands['four-of-a-kind'].append((cards, bid))
-                    else:
-                        # print(f'adding as full house {cards=}')
-                        hands['full-house'].append((cards, bid))
-                else:
-                    # print(f'adding as 2 pair {cards=}')
-                    hands['two-pair'].append((cards, bid))
-                break
+                    # print(f'adding as full house {cards=}')
+                    hands['full-house'].append((cards, bid))
+            else:
+                # print(f'adding as 2 pair {cards=}')
+                hands['two-pair'].append((cards, bid))
+            
 
     elif len(unique_cards) == 4:
         if 'W' in unique_cards:
