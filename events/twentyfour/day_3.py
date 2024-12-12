@@ -22,5 +22,5 @@ def second_assignment():
     return multiplication_results
 
 
-print(f'answer to assignment 1 is: {first_assignment()}')  # 187825547
+print(f'answer to assignment 1 is: {first_assignment()}') 
 print(f'answer to assignment 2 is: {second_assignment()}') 
