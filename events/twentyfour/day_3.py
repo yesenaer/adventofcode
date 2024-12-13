@@ -4,7 +4,6 @@ import re
 RESOURCES = Path(__file__).parent / 'resources'
 
 
-
 def first_assignment():
     multiplication_results = 0
     
@@ -41,8 +40,10 @@ def second_assignment():
     with open(RESOURCES / 'day3_output.txt') as file:
         for line in file:
             if line.startswith("don't()"):
+                # should not process
                 continue
             else:
+                # processes the line for multiplications
                 hits = re.findall('m{1}u{1}l{1}\(\d{1,3}\,\d{1,3}\)', line)
                 for hit in hits:
                     digit = (hit.replace('mul(', '').replace(')', '')).split(',')

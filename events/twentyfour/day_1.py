@@ -3,7 +3,8 @@ from pathlib import Path
 RESOURCES = Path(__file__).parent / 'resources'
 
 
-def process_input():
+def process_input() -> tuple[list, list]:
+    """Processes day1 input file into 2 lists."""
     first = []
     second = []
     with open(RESOURCES / 'day1_input.txt') as file:
@@ -14,7 +15,7 @@ def process_input():
     return first, second
 
 
-def first_assignment():
+def first_assignment() -> int:
     total_distance = 0
     first, second = process_input()
     first.sort()
@@ -29,7 +30,7 @@ def first_assignment():
     return total_distance
 
 
-def second_assignment():
+def second_assignment() -> int:
     similarity_score = 0
     first, second = process_input()
     for i in range(len(first)):
