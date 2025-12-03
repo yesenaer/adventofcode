@@ -14,6 +14,47 @@ def process_input() -> tuple[list, list]:
     return first, second
 
 
+def turn_left(start: int, steps: int) -> tuple[int, int]: 
+        times_zero = 0
+        if start == 0:
+            current = 100
+        else:
+            current = start
+
+        for i in range(steps):
+            current -= 1
+            if current == 0:
+                times_zero += 1
+                current = 100
+       
+        if current == 100:
+            current = 0
+
+        if current > 100 or current < 0:
+            raise ValueError(f"Dial position out of bounds: {current}")
+        
+        return current, times_zero
+
+
+def turn_right(start: int, steps: int) -> tuple[int, int]: 
+        times_zero = 0
+        if start == 100:
+            current = 0
+        else:
+            current = start
+
+        for i in range(steps):
+            current += 1
+            if current == 100:
+                times_zero += 1
+                current = 0
+        
+        if current > 100 or current < 0:
+            raise ValueError(f"Dial position out of bounds: {current}")
+
+        return current, times_zero
+
+
 def first_assignment() -> int:
     times_zero = 0
     dial_position = 50
@@ -39,9 +80,26 @@ def first_assignment() -> int:
 
 
 def second_assignment() -> int:
-    result = 0
-    return result
+    times_zero = 0
+    dial_position = 50
+    direction, steps = process_input()
+    
+    if not len(direction) == len(steps):
+        raise ValueError("Input lists are not of equal length.")
+
+    for i in range(len(direction)):
+
+        if direction[i] == 'L':
+            dial_position, count = turn_left(dial_position, steps[i])
+            times_zero += count
+            
+        
+        elif direction[i] == 'R':
+            dial_position, count = turn_right(dial_position, steps[i])
+            times_zero += count
+
+    return times_zero
 
 
 print(f'answer to assignment 1 is: {first_assignment()}')  # 1158
-print(f'answer to assignment 2 is: {second_assignment()}')
+print(f'answer to assignment 2 is: {second_assignment()}')  # 6860
